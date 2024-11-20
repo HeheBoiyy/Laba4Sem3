@@ -9,6 +9,9 @@ using ModelLayer;
 
 namespace Presenter
 {
+    /// <summary>
+    /// Презентер, отвечающий за взаимодействие с пользователем для работы с гистограммой распределения студентов.
+    /// </summary>
     public class HistogramPresenter : IPresenter
     {
         public IKernel ninject;

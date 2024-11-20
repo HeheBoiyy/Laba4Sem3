@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
+    /// <summary>
+    /// Аргументы события для выбора студента.
+    /// </summary>
     public class ViewStudentSelectEventArgs
     {
         public int Id;

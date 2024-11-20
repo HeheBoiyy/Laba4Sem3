@@ -41,7 +41,10 @@ namespace ModelLayer
         /// Генерирует отчёт о распределении студентов по специальностям.
         /// </summary>
         void ReportStudentHistogram();
-
+        /// <summary>
+        /// Загружает опредлённого студента
+        /// </summary>
+        void LoadStudent(int id);
         /// <summary>
         /// Событие, возникающее при добавлении нового студента.
         /// </summary>

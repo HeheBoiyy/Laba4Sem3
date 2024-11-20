@@ -7,16 +7,12 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
+    /// <summary>
+    /// Аргументы события для обновления информации о студенте.
+    /// </summary>
     public class ViewStudentUpdateEventArgs
     {
-        public int Id { get; set; }
         public Student StudentToUpdate { get; set; }
-
-        public ViewStudentUpdateEventArgs(int id, Student studentToUpdate)
-        {
-            Id = id;
-            StudentToUpdate = studentToUpdate;
-        }
         public ViewStudentUpdateEventArgs(Student studentToUpdate)
         {
             StudentToUpdate = studentToUpdate;

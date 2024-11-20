@@ -9,6 +9,9 @@ using Ninject;
 
 namespace Presenter
 {
+    /// <summary>
+    /// Презентер, отвечающий за взаимодействие с пользователем для работы с основным представлением приложения.
+    /// </summary>
     public class MainPresenter : IPresenter
     {
         public IKernel ninject;

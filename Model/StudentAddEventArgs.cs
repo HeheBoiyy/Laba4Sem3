@@ -7,6 +7,9 @@ using Shared;
 
 namespace ModelLayer
 {
+    /// <summary>
+    /// Аргументы события для добавления студента.
+    /// </summary>
     public class StudentAddEventArgs : EventArgs
     {
         public Student Student { get; set; }

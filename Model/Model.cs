@@ -18,6 +18,7 @@ namespace ModelLayer
         public event EventHandler<StudentSelectEventArgs> EventStudentDeleted = delegate { };
         public event EventHandler<StudentLoadListEventArgs> EventStudentList = delegate { };
         public event EventHandler<StudentHistogramEventArgs> EventStudentHistogram = delegate { };
+        public event EventHandler<StudentLoadedEventArgs> EventStudentLoaded = delegate { };
 
         public Model(IRepository<Student> studentRepository)
         {
@@ -59,6 +60,11 @@ namespace ModelLayer
             var students = _studentRepository.GetAll();
             EventStudentHistogram(this, new StudentHistogramEventArgs(students.GroupBy(s => s.Speciality)
                                                                               .ToDictionary(g => g.Key, g => g.Count())));
+        }
+        public void LoadStudent(int id)
+        {
+            var student = _studentRepository.Get(id);
+            EventStudentLoaded(this,new StudentLoadedEventArgs(student));
         }
     }
 }

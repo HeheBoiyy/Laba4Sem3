@@ -7,6 +7,9 @@ using Shared;
 
 namespace Shared
 {
+    /// <summary>
+    /// Аргументы события для добавления нового студента.
+    /// </summary>
     public class ViewStudentAddEventArgs : EventArgs
     {
         public string Name { get; set; }

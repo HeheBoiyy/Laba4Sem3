@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Shared
 {
+    /// <summary>
+    /// Аргументы события для загрузки списка студентов.
+    /// </summary>
     public class ViewStudentLoadListEventArgs
     {
         

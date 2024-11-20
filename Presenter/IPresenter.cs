@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Presenter
 {
+    /// <summary>
+    /// Интерфейс для создания презентеров
+    /// </summary>
     public interface IPresenter
     {
         

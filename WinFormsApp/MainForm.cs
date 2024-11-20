@@ -135,7 +135,7 @@ namespace WinFormsApp
             }
             else
             {
-                MessageBox.Show("");
+                MessageBox.Show("Выберите студента для обновления!");
             }
             
         }
@@ -172,7 +172,10 @@ namespace WinFormsApp
         {
             EventViewStudentLoadList(this,new ViewStudentLoadListEventArgs());
         }
-
+        /// <summary>
+        /// Обновление студента.
+        /// </summary>
+        /// <param name="student"></param>
         public void UpdateStudent(Student student)
         {
             EventViewStudentLoadList(this, new ViewStudentLoadListEventArgs());

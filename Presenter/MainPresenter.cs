@@ -12,7 +12,7 @@ namespace Presenter
     /// <summary>
     /// Презентер, отвечающий за взаимодействие с пользователем для работы с основным представлением приложения.
     /// </summary>
-    public class MainPresenter : IPresenter
+    public class MainPresenter
     {
         public IKernel ninject;
         private readonly IModel model;
@@ -35,6 +35,9 @@ namespace Presenter
 
             model.EventStudentUpdated += model_StudentUpdate;
             view.EventViewStudentUpdate += view_StudentUpdate;
+
+            model.EventStudentHistogram += model_DistributionLoad;
+            view.EventViewStudentHistogram += view_DistributionLoad;
         }
         public void model_StudentDelete(object sender,StudentSelectEventArgs e)
         {
@@ -67,6 +70,14 @@ namespace Presenter
         public void model_StudentUpdate(object sender,StudentUpdateEventArgs e)
         {
             view.UpdateStudent(e.StudentToUpdate);
+        }
+        public void model_DistributionLoad(object sender, StudentHistogramEventArgs e)
+        {
+            view.LoadChart(e.Histogram);
+        }
+        public void view_DistributionLoad(object sender, ViewStudentHistogramEventArgs e)
+        {
+            model.ReportStudentHistogram();
         }
     }
 }

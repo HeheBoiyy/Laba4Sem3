@@ -23,8 +23,12 @@ namespace Presenter
     {
         public override void Load()
         {
+            var projectRootPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
+
+            var jsonFilePath = Path.Combine(projectRootPath, "DataAccessLayer");
+
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(jsonFilePath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                 .Build();
 

@@ -3,6 +3,7 @@ using Ninject;
 using Microsoft.VisualBasic.Logging;
 using Shared;
 using Presenter;
+using Microsoft.Extensions.Caching.Distributed;
 namespace WinFormsApp
 {
     public partial class MainForm : Form, IMainView
@@ -14,6 +15,7 @@ namespace WinFormsApp
         public event EventHandler<ViewStudentLoadListEventArgs> EventViewStudentLoadList = delegate { };
         public event EventHandler<ViewStudentAddEventArgs> EventViewStudentAdd = delegate { };
         public event EventHandler<ViewStudentUpdateEventArgs> EventViewStudentUpdate = delegate { };
+        public event EventHandler<ViewStudentHistogramEventArgs> EventViewStudentHistogram = delegate { };
         /// <summary>
         /// Инициализирует новый экземпляр формы MainForm.
         /// </summary>
@@ -150,10 +152,13 @@ namespace WinFormsApp
         /// <param name="e">Аргументы события.</param>
         private void btnShowDistribution_Click(object sender, EventArgs e)
         {
-            var distributionForm = new DistributionForm();
+            EventViewStudentHistogram(this, new ViewStudentHistogramEventArgs());
+        }
+        public void LoadChart(Dictionary<string,int> data)
+        {
+            DistributionForm distributionForm = new DistributionForm(data);
             distributionForm.ShowDialog();
         }
-        
         /// <summary>
         /// Перенаправляет на сайт сфу при нажатии текста на главной форме
         /// </summary>

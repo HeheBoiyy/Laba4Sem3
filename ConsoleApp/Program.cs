@@ -15,18 +15,19 @@ namespace ConsoleApp
     /// Этот класс инициализирует контейнер зависимостей Ninject, 
     /// получает экземпляр бизнес-логики и запускает пользовательский интерфейс.
     /// </remarks>
-    internal class Program: IConsoleView
+    internal class Program: IMainView
     {
         public event EventHandler<ViewStudentSelectEventArgs> EventViewStudentDelete = delegate { };
         public event EventHandler<ViewStudentLoadListEventArgs> EventViewStudentLoadList = delegate { };
         public event EventHandler<ViewStudentAddEventArgs> EventViewStudentAdd = delegate { };
         public event EventHandler<ViewStudentUpdateEventArgs> EventViewStudentUpdate = delegate { };
-        public event EventHandler<ViewStudentHistogramEventArgs> ViewStudentHistogram = delegate { };
-        public event EventHandler<ViewStudentLoadStudentEventArgs> EventViewStudentLoadStudent = delegate { };
-        private readonly ConsolePresenter presenter;
+        public event EventHandler<ViewStudentHistogramEventArgs> EventViewStudentHistogram = delegate { };
+        private List<List<string>> _students;
+        private readonly MainPresenter presenter;
         public Program()
         {
-            presenter = new ConsolePresenter(this);
+            _students = new List<List<string>>();
+            presenter = new MainPresenter(this);
         }
         static void Main(string[] args)
         {
@@ -46,7 +47,7 @@ namespace ConsoleApp
                         program.CheckRemoveStudent();
                         break;
                     case "3":
-                        program.UpdateStudent();
+                        program.CheckOnUpdateStudent();
                         break;
                     case "4":
                         program.EventViewStudentLoadList(program,new ViewStudentLoadListEventArgs());
@@ -60,6 +61,9 @@ namespace ConsoleApp
                 }
             } while (command != "exit");
         }
+        /// <summary>
+        /// Метод ввода и проверки данных для добавления студента
+        /// </summary>
         public void CheckStudentCharacteristics()
         {
             Console.Clear();
@@ -82,11 +86,14 @@ namespace ConsoleApp
                 return;
             }
         }
-        public void AddStudent()
+        public void AddStudent(Student student)
         {
             Console.WriteLine("Студент успешно добавлен!");
             return;
         }
+        /// <summary>
+        /// Метод ввода данных для удаления студента
+        /// </summary>
         public void CheckRemoveStudent()
         {
             Console.WriteLine("Введите Id Студента:");
@@ -102,13 +109,14 @@ namespace ConsoleApp
                 Console.WriteLine("Бро, нужно вводить число");
             }
         }
-        public void RemoveStudent()
+        public void DeleteStudent(int id)
         {
             Console.WriteLine("Студент успешно удалён!");
             return;
         }
         public void LoadStudents(List<List<string>> students)
         {
+            _students = students;
             if (students.Count > 0)
             {
                 foreach (var student in students)
@@ -121,11 +129,15 @@ namespace ConsoleApp
                 Console.WriteLine("Студентов нет");
             }
         }
+        /// <summary>
+        /// Метод ввода данных для обновления студента
+        /// </summary>
         public void CheckOnUpdateStudent()
         {
             Console.WriteLine("Выберите номер студента для изменения:");
             EventViewStudentLoadList(this, new ViewStudentLoadListEventArgs());
-            if (!int.TryParse(Console.ReadLine(), out int chosenNumber))
+            string id = Console.ReadLine();
+            if (!int.TryParse(id, out int chosenNumber))
             {
                 Console.WriteLine("Ошибка! Введите корректный номер студента.");
                 return;
@@ -140,32 +152,21 @@ namespace ConsoleApp
             Console.Write("Введите новую группу (оставьте пустым, чтобы не менять): ");
             string group = Console.ReadLine();
 
+            int studentposition = _students.FindIndex(student => Convert.ToInt16(student[0]) == chosenNumber);
+            List<string> currentStudent = _students[studentposition];
+            name = string.IsNullOrWhiteSpace(name) ? currentStudent[1] : name;
+            speciality = string.IsNullOrWhiteSpace(speciality) ? currentStudent[2] : speciality;
+            group = string.IsNullOrWhiteSpace(group) ? currentStudent[3] : group;
+            EventViewStudentUpdate(this, new ViewStudentUpdateEventArgs(new Student(chosenNumber, name, speciality, group)));
 
         }
-        public void UpdateStudent()
+        public void UpdateStudent(Student student)
         {
             Console.WriteLine("Студент обновлён!");
         }
-        public void CheckStudentId(int id)
-        {
-            EventViewStudentLoadStudent(this,new ViewStudentLoadStudentEventArgs(id));
-        }
-        public List<List<string>> GetStudent(Student student)
-        {
-            List<List<string>> Student = new List<List<string>>()
-            {
-                new List<string>
-                {
-                    student.Name,
-                    student.Speciality,
-                    student.Group
-                }
-            };
-            return Student;
-        }
         public void ShowDistribution()
         {
-            ViewStudentHistogram(this,new ViewStudentHistogramEventArgs());
+            EventViewStudentHistogram(this,new ViewStudentHistogramEventArgs());
         }
         public void LoadChart(Dictionary<string,int> data)
         {

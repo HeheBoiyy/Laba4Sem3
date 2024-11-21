@@ -30,13 +30,19 @@ public interface IMainView
     /// Событие, возникающее при обновлении информации о студенте.
     /// </summary>
     event EventHandler<ViewStudentUpdateEventArgs> EventViewStudentUpdate;
-
+    /// <summary>
+    /// Событие, возникающее при просмотре гистограммы распределения студентов.
+    /// </summary>
+    event EventHandler<ViewStudentHistogramEventArgs> EventViewStudentHistogram;
+    /// <summary>
+    /// Метод отрисовки гистаграммы
+    /// </summary>
+    void LoadChart(Dictionary<string, int> data);
     /// <summary>
     /// Метод удаления студента по идентификатору.
     /// </summary>
     /// <param name="id">Идентификатор студента.</param>
-    void DeleteStudent(int id);
-
+     void DeleteStudent(int id);
     /// <summary>
     /// Метод добавления нового студента.
     /// </summary>

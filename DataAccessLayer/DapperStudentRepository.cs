@@ -126,8 +126,12 @@ namespace DataAccessLayer
         /// </remarks>
         private string GetConnectionString()
         {
+            var projectRootPath = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.Parent.FullName;
+
+            var jsonFilePath = Path.Combine(projectRootPath, "DataAccessLayer");
+
             var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(jsonFilePath)
                 .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
             IConfiguration configuration = builder.Build();

@@ -61,10 +61,5 @@ namespace ModelLayer
             EventStudentHistogram(this, new StudentHistogramEventArgs(students.GroupBy(s => s.Speciality)
                                                                               .ToDictionary(g => g.Key, g => g.Count())));
         }
-        public void LoadStudent(int id)
-        {
-            var student = _studentRepository.Get(id);
-            EventStudentLoaded(this,new StudentLoadedEventArgs(student));
-        }
     }
 }

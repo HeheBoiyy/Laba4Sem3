@@ -14,19 +14,20 @@ using Presenter;
 
 namespace WinFormsApp
 {
-    public partial class DistributionForm : Form, IDistributionView
+    public partial class DistributionForm : Form
     {
-        public event EventHandler<ViewStudentHistogramEventArgs> ViewStudentHistogram = delegate { };
-        private readonly HistogramPresenter histogramPresenter;
+        private Dictionary<string, int> data;
         /// <summary>
         /// Конструктор для инициализации объекта DistributionForm
         /// </summary>
         /// <param name="logic">Бизнес логика</param>
         /// <param name="specialityCounts">Словарь</param>
-        public DistributionForm()
+        public DistributionForm(Dictionary<string,int> Data)
         {
+            data = Data;
             InitializeComponent();
-            histogramPresenter = new HistogramPresenter(this);
+            LoadChart(Data);
+
         }
         /// <summary>
         /// Создание и загрузка гистаграммы
@@ -58,7 +59,7 @@ namespace WinFormsApp
 
         private void DistributionForm_Load(object sender, EventArgs e)
         {
-            ViewStudentHistogram(this, new ViewStudentHistogramEventArgs());
+            
         }
     }
 }

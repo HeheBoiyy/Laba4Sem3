@@ -42,10 +42,6 @@ namespace ModelLayer
         /// </summary>
         void ReportStudentHistogram();
         /// <summary>
-        /// Загружает опредлённого студента
-        /// </summary>
-        void LoadStudent(int id);
-        /// <summary>
         /// Событие, возникающее при добавлении нового студента.
         /// </summary>
         event EventHandler<StudentAddEventArgs> EventStudentAdded;

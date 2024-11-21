@@ -6,6 +6,7 @@ using Ninject;
 using Shared;
 using ModelLayer;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using StudentModel;
 namespace ConsoleApp
 {
     /// <summary>

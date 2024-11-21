@@ -1,4 +1,5 @@
-﻿namespace DataAccessLayer
+﻿using StudentModel;
+namespace DataAccessLayer
 {
     /// <summary>
     /// Интерфейс репозитория для работы с данными.

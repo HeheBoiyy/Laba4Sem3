@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared;
 using Microsoft.Extensions.Configuration;
-
+using StudentModel;
 
 namespace DataAccessLayer
 {

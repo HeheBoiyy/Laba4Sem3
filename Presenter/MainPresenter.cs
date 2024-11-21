@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ModelLayer;
+using StudentModel;
 using Shared;
 using Ninject;
 

@@ -2,8 +2,10 @@ using System.Diagnostics;
 using Ninject;
 using Microsoft.VisualBasic.Logging;
 using Shared;
+using StudentModel;
 using Presenter;
 using Microsoft.Extensions.Caching.Distributed;
+
 namespace WinFormsApp
 {
     public partial class MainForm : Form, IMainView

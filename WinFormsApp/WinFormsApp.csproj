@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Presenter\Presenter.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\StudentModel\StudentModel.csproj" />
   </ItemGroup>
 
 </Project>

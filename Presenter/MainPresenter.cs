@@ -6,23 +6,20 @@ using System.Threading.Tasks;
 using ModelLayer;
 using StudentModel;
 using Shared;
-using Ninject;
 
 namespace Presenter
 {
     /// <summary>
     /// Презентер, отвечающий за взаимодействие с пользователем для работы с основным представлением приложения.
     /// </summary>
-    public class MainPresenter
+    public class MainPresenter : IPresenter
     {
-        public IKernel ninject;
         private readonly IModel model;
         private readonly IMainView view;
-        public MainPresenter(IMainView view)
+        public MainPresenter(IMainView view, IModel model)
         {
-            ninject = new StandardKernel(new SimpleConfigModule());
-            model = ninject.Get<Model>();
-
+            
+            this.model = model;
             this.view = view;
 
             model.EventStudentDeleted += model_StudentDelete;

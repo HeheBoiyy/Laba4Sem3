@@ -10,6 +10,11 @@ using StudentModel;
 using Ninject.Modules;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
+using Shared;
+using ConsoleApp;
+using WinFormsApp;
+using System.Windows.Forms;
+
 namespace Presenter
 {
     /// <summary>
@@ -34,6 +39,7 @@ namespace Presenter
                 .Build();
 
             string framework = configuration["DataAccessFramework"];
+            string view = configuration["View"];
             string connectionString = configuration.GetConnectionString("DefaultConnection");
 
             // DBContext для EF
@@ -41,8 +47,25 @@ namespace Presenter
             optionsBuilder.UseNpgsql(connectionString);
 
             Bind<DbContextOptions<AppDbContext>>().ToConstant(optionsBuilder.Options);
-            Bind<AppDbContext>().ToSelf().InSingletonScope();
+            Bind<AppDbContext>().ToSelf().InTransientScope();
+            Bind<IModel>().To<Model>().InTransientScope();
 
+            switch (view)
+            {
+                case "Console":
+                    Bind<IMainView>().To<Program>().InSingletonScope();
+                    break;
+                case "Form":
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
+                    Bind<IMainView>().To<MainForm>().InSingletonScope();
+                    break;
+                default:
+                    Console.WriteLine("Не выбрана View");
+                    break;
+            }
+
+            Bind<IPresenter>().To<MainPresenter>().InSingletonScope();
 
             switch (framework)
             {

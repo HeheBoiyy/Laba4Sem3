@@ -1,12 +1,11 @@
-﻿using Presenter;
-using System.Drawing;
+﻿using System.Drawing;
 using Spectre.Console;
 using System.Collections.Generic;
 using Ninject;
 using Shared;
-using ModelLayer;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using StudentModel;
+ 
 namespace ConsoleApp
 {
     /// <summary>
@@ -16,7 +15,7 @@ namespace ConsoleApp
     /// Этот класс инициализирует контейнер зависимостей Ninject, 
     /// получает экземпляр бизнес-логики и запускает пользовательский интерфейс.
     /// </remarks>
-    internal class Program: IMainView
+    public class Program: IMainView
     {
         public event EventHandler<ViewStudentSelectEventArgs> EventViewStudentDelete = delegate { };
         public event EventHandler<ViewStudentLoadListEventArgs> EventViewStudentLoadList = delegate { };
@@ -24,16 +23,13 @@ namespace ConsoleApp
         public event EventHandler<ViewStudentUpdateEventArgs> EventViewStudentUpdate = delegate { };
         public event EventHandler<ViewStudentHistogramEventArgs> EventViewStudentHistogram = delegate { };
         private List<List<string>> _students;
-        private readonly MainPresenter presenter;
         public Program()
         {
             _students = new List<List<string>>();
-            presenter = new MainPresenter(this);
         }
-        static void Main(string[] args)
+        public void Run()
         {
-            string command;
-            Program program = new Program();
+            string command; 
             do
             {
                 Console.WriteLine("\nВведите команду: 1.Add, 2.Remove, 3.Update, 4.List, 5.Distribution, 6.Exit programm");
@@ -42,19 +38,19 @@ namespace ConsoleApp
                 switch (command)
                 {
                     case "1":
-                        program.CheckStudentCharacteristics();
+                        CheckStudentCharacteristics(); // Используем текущий экземпляр
                         break;
                     case "2":
-                        program.CheckRemoveStudent();
+                        CheckRemoveStudent(); // Используем текущий экземпляр
                         break;
                     case "3":
-                        program.CheckOnUpdateStudent();
+                        CheckOnUpdateStudent(); // Используем текущий экземпляр
                         break;
                     case "4":
-                        program.EventViewStudentLoadList(program,new ViewStudentLoadListEventArgs());
+                        EventViewStudentLoadList(this, new ViewStudentLoadListEventArgs()); // Используем текущий экземпляр
                         break;
                     case "5":
-                        program.ShowDistribution();
+                        ShowDistribution(); // Используем текущий экземпляр
                         break;
                     case "6":
                         Environment.Exit(0);

@@ -11,8 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Model\ModelLayer.csproj" />
-    <ProjectReference Include="..\Shared\Shared.csproj" />
+    <ProjectReference Include="..\ConsoleApp\ConsoleApp.csproj" />
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\Presenter\Presenter.csproj" />
+    <ProjectReference Include="..\WinFormsApp\WinFormsApp.csproj" />
   </ItemGroup>
 
 </Project>

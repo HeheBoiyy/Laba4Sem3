@@ -12,6 +12,7 @@ namespace Shared
 /// </summary>
 public interface IMainView
 {
+
     /// <summary>
     /// Событие, возникающее при удалении студента.
     /// </summary>
@@ -61,5 +62,9 @@ public interface IMainView
     /// </summary>
     /// <param name="student">Информация об обновляемом студенте.</param>
     void UpdateStudent(Student student);
+    /// <summary>
+    /// Метод для запуска приложения
+    /// </summary>
+    void Run();
 }
 }

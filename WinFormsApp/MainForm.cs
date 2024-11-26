@@ -3,8 +3,6 @@ using Ninject;
 using Microsoft.VisualBasic.Logging;
 using Shared;
 using StudentModel;
-using Presenter;
-using Microsoft.Extensions.Caching.Distributed;
 
 namespace WinFormsApp
 {
@@ -12,7 +10,6 @@ namespace WinFormsApp
     {
         public AddStudentForm addStudentForm;
         public UpdateStudentForm updateStudentForm;
-        private readonly MainPresenter presenter;
         public event EventHandler<ViewStudentSelectEventArgs> EventViewStudentDelete = delegate { };
         public event EventHandler<ViewStudentLoadListEventArgs> EventViewStudentLoadList = delegate { };
         public event EventHandler<ViewStudentAddEventArgs> EventViewStudentAdd = delegate { };
@@ -24,7 +21,6 @@ namespace WinFormsApp
         public MainForm()
         {
             InitializeComponent();
-            presenter = new MainPresenter(this);
             InitializeListView();
 
             addStudentForm = new AddStudentForm();
@@ -47,7 +43,16 @@ namespace WinFormsApp
             listViewStudents.Columns.Add("Специальность", 100);
             listViewStudents.Columns.Add("Группа", 100);
         }
-
+        public void Run()
+        {
+            Load += MainForm_Load;
+            Application.Run(this);
+        }
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            // Переносим сюда код, который должен выполняться при загрузке формы
+            EventViewStudentLoadList(this, new ViewStudentLoadListEventArgs());
+        }
         /// <summary>
         /// Загружает список студентов в ListView.
         /// </summary>
